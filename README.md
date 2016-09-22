@@ -1,5 +1,5 @@
 # Resize Commands for Sketch
-A Sketch plugin that lets you resize and reposition objects by using simple arithmetic commands, like `b+20,lr+20`. Multiple objects are support.
+A Sketch plugin that lets you resize and reposition objects by using simple arithmetic commands, like `b+20,lr+20`. Multiple objects are supported.
 
 ## Demo
 ![Using Resize Commands](demo-resize-commands.gif)
