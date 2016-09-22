@@ -48,8 +48,8 @@ You can easily combine multiple commands by separating them with a , or use mult
 | **%** | Percentage|
 
 ## Installation
- 1. [Download](Resize Commands.sketchplugin) the plugin.
- 2. Run ‘Resize Commands.sketchplugin’ to install
+ 1. [Download](https://github.com/ANGIstudio/Resize-Commands/archive/master.zip) the plugin.
+ 2. Unzip & run ‘Resize Commands.sketchplugin’ to install
 
 ## Thanks to:
 Matt Stow, who did the heavy lifting for this plugin. His Fireworks plugin [Math Resize](http://mattstow.com/math-resize.html) I have used for a long time!
