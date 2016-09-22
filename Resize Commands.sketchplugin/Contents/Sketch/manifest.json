@@ -1,0 +1,23 @@
+{
+    "name" : "Resize Commands",
+    "identifier" : "com.sketchapp.resizecommands",
+    "version" : "1.0",
+    "description" : "Resize and reposition objects by using simple arithmetic",
+    "authorEmail" : "mail@andrejilderda.nl",
+    "author" : "Andre Jilderda",
+    "commands" : [
+    {
+        "script" : "resize-commands.js",
+        "handler" : "onResizeCommands",
+        "shortcut" : "ctrl shift q",
+        "name" : "Resize Commands",
+        "identifier" : "onResizeCommands"
+    }
+  ],
+  "menu": {
+    "isRoot": true,
+    "items": [
+      "onResizeCommands"
+    ]
+  }
+}
