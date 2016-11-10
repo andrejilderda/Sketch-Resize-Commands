@@ -51,11 +51,11 @@ You can easily combine multiple commands by separating them with a , or use mult
  1. [Download](https://github.com/ANGIstudio/Resize-Commands/archive/master.zip) the plugin.
  2. Unzip & run ‘Resize Commands.sketchplugin’ to install
 
-## Thanks to:
+## Thanks to
 Matt Stow, who did the heavy lifting for this plugin. His Fireworks plugin [Math Resize](http://mattstow.com/math-resize.html) I have used for a long time!
 
 ## Feedback
 If you find any issues or have any suggestions, please create an issue. Pull requests are welcome also!
 
-## Created by:
+## Created by
 [Andre Jilderda](https://github.com/ajilderda) @ [Angi Studio](http://www.angistudio.com), The Hague (NL)
