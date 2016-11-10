@@ -56,3 +56,6 @@ Matt Stow, who did the heavy lifting for this plugin. His Fireworks plugin [Math
 
 ## Feedback
 If you find any issues or have any suggestions, please create an issue. Pull requests are welcome also!
+
+## Created by:
+[Andre Jilderda](https://github.com/ajilderda) @ [Angi Studio](http://www.angistudio.com), The Hague (NL)

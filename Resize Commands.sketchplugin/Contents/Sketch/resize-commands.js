@@ -3,7 +3,7 @@
 var global_context;
 var resizeCommandDirections = /[lrtbwhaxy]/g;
 var escapedValue;
-var resizeCommandPrevValue;
+var resizeCommandPrevValue  = "";
 
 function onResizeCommands(context) {
 	global_context = context;
