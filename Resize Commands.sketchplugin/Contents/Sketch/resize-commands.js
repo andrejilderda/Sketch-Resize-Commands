@@ -1,24 +1,31 @@
-@import "persistence.js";
-
 var global_context;
 var resizeCommandDirections = /[lrtbwhaxy]/g;
 var escapedValue;
 var resizeCommandPrevValue  = "";
+
+// A nicer/shorter way for saving settings than using persistence.js: http://developer.sketchapp.com/reference/api/file/api/Application.js.html
+// It seems like they are not part of the Sketch API yet, as long as that's not
+// the case I use 'rc' as a prefix to prevent conflicts in the future
+function rcSetSettingForKey(key, value) {
+    NSUserDefaults.standardUserDefaults().setObject_forKey_(value, key)
+}
+function rcSettingForKey(key) {
+    return NSUserDefaults.standardUserDefaults().objectForKey_(key);
+}
 
 function onResizeCommands(context) {
 	global_context = context;
 	doc = context.document;
 	// check if there are no conflicting characters in the previous input string (else input prompt fails to open)
 	try {
-		escapedValue = persist.get("resizeCommandPromptValue");
+		escapedValue = rcSettingForKey("resizeCommandPromptValue");
+		resizeCommandPrevValue = escapedValue;
 		if(escapedValue.indexOf('.') > -1) { // check if there are dots present
 			resizeCommandPrevValue = escapedValue.replace(".",','); // reset . to , again
-		} else { // quotes are only added when having one single operation for some reason.
-			resizeCommandPrevValue = escapedValue.replace(/(^"|"$)/g, ''); // this removes the quotes
 		}
 	}
 	catch (e) { // else reset history
-		persist.set("resizeCommandPromptValue", "");
+		rcSetSettingForKey("resizeCommandPromptValue", "");
 	}
 
 	// show inputprompt
@@ -28,7 +35,7 @@ function onResizeCommands(context) {
 	if (resizeCommandPrompt) {
 		// store previous value for later use
 		escapedValue = resizeCommandPrompt.replace(",", "."); // workaround since comma's conflict with persistence.js
-		persist.set("resizeCommandPromptValue", escapedValue);
+		rcSetSettingForKey("resizeCommandPromptValue", escapedValue);
 
 		resizeCommandPrompt = resizeCommandPrompt.toString();
 		resizeCommandPrompt = resizeCommandPrompt.toLowerCase();
