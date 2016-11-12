@@ -2,7 +2,7 @@
     "name" : "Resize Commands",
     "identifier" : "com.sketchapp.resizecommands",
     "version" : "1.0",
-    "description" : "Resize and reposition objects by using simple arithmetic",
+    "description" : "Resize and reposition objects by using simple arithmetic commands, like 'b+20,lr+20'. Multiple objects are supported.",
     "authorEmail" : "mail@andrejilderda.nl",
     "author" : "Andre Jilderda",
     "commands" : [

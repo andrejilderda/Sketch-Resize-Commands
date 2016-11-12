@@ -3,16 +3,6 @@ var resizeCommandDirections = /[lrtbwhaxy]/g;
 var escapedValue;
 var resizeCommandPrevValue  = "";
 
-// A nicer/shorter way for saving settings than using persistence.js: http://developer.sketchapp.com/reference/api/file/api/Application.js.html
-// It seems like they are not part of the Sketch API yet, as long as that's not
-// the case I use 'rc' as a prefix to prevent conflicts in the future
-function rcSetSettingForKey(key, value) {
-    NSUserDefaults.standardUserDefaults().setObject_forKey_(value, key)
-}
-function rcSettingForKey(key) {
-    return NSUserDefaults.standardUserDefaults().objectForKey_(key);
-}
-
 function onResizeCommands(context) {
 	global_context = context;
 	doc = context.document;
@@ -84,6 +74,16 @@ function onResizeCommands(context) {
 			}
 		}
 	}
+}
+
+// A nicer/shorter way for saving settings than using persistence.js: http://developer.sketchapp.com/reference/api/file/api/Application.js.html
+// It seems like they are not part of the Sketch API yet, as long as that's not
+// the case I use 'rc' as a prefix to prevent conflicts in the future
+function rcSetSettingForKey(key, value) {
+    NSUserDefaults.standardUserDefaults().setObject_forKey_(value, key)
+}
+function rcSettingForKey(key) {
+    return NSUserDefaults.standardUserDefaults().objectForKey_(key);
 }
 
 function ContractExpand(operation, operator, amount) {
