@@ -5,7 +5,7 @@ A Sketch plugin that lets you resize and reposition objects by using simple arit
 ![Using Resize Commands](demo-resize-commands.gif)
 
 ## How to use
-Press <kbd>Cmd</kbd> + <kbd>shift</kbd> + <kbd>q</kbd> to open up a prompt in which you can enter your commands to resize your selection.
+Press <kbd>Ctrl</kbd> + <kbd>shift</kbd> + <kbd>q</kbd> to open up a prompt in which you can enter your commands to resize your selection.
 
 ## Example usage
 * `l+20` // expand selection 20px from left side
