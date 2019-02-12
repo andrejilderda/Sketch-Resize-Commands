@@ -1,3 +1,5 @@
+var UI = require('sketch/ui');
+
 var global_context;
 var resizeCommandDirections = /[lrtbwhaxy]/g;
 var escapedValue;
@@ -20,60 +22,66 @@ function onResizeCommands(context) {
 
 	// show inputprompt
 	doc.showMessage("Valid directions: t  b  l  r  a(ll)  w  h  x  y. Valid operations: +  -  =  *  /  %. ");
-	var resizeCommandPrompt = doc.askForUserInput_initialValue("Enter your Resize Commands. For example: lr-10,h=230", resizeCommandPrevValue);
+    UI.getInputFromUser(
+        "Enter your Resize Commands. For example: lr-10,h=230",
+        {
+            initialValue: resizeCommandPrevValue,
+        },
+        (err, resizeCommandPrompt) => {
+            if (resizeCommandPrompt) {
+                // store previous value for later use
+                var escapedValue = resizeCommandPrompt.replace(",", "."); // workaround since comma's conflict with persistence.js
+                rcSetSettingForKey("resizeCommandPromptValue", escapedValue);
 
-	if (resizeCommandPrompt) {
-		// store previous value for later use
-		escapedValue = resizeCommandPrompt.replace(",", "."); // workaround since comma's conflict with persistence.js
-		rcSetSettingForKey("resizeCommandPromptValue", escapedValue);
+                resizeCommandPrompt = resizeCommandPrompt.toString();
+                resizeCommandPrompt = resizeCommandPrompt.toLowerCase();
+                resizeCommandPrompt = resizeCommandPrompt.replace(/(px)/g, "");
+                resizeCommandPrompt = resizeCommandPrompt.replace(/ /g, "");
+                resizeCommandPrompt = resizeCommandPrompt.replace(/;/g, ",");
 
-		resizeCommandPrompt = resizeCommandPrompt.toString();
-		resizeCommandPrompt = resizeCommandPrompt.toLowerCase();
-		resizeCommandPrompt = resizeCommandPrompt.replace(/(px)/g, "");
-		resizeCommandPrompt = resizeCommandPrompt.replace(/ /g, "");
-		resizeCommandPrompt = resizeCommandPrompt.replace(/;/g, ",");
+                var amount, operator, operation;
+                var num = 1,
+                    operationArray = [];
 
-		var amount, operator, operation;
-		var num = 1,
-		operationArray = [];
+                if (resizeCommandPrompt.indexOf(",") > 0) {
+                    num = resizeCommandPrompt.split(",").length;
+                    operationArray = resizeCommandPrompt.split(",");
+                }
+                else {
+                    operationArray[0] = resizeCommandPrompt;
+                }
 
-		if (resizeCommandPrompt.indexOf(",") > 0) {
-			num = resizeCommandPrompt.split(",").length;
-			operationArray = resizeCommandPrompt.split(",");
-		}
-		else {
-			operationArray[0] = resizeCommandPrompt;
-		}
+                // operationArray = array with all the operations that were put in, for example [0]=lr+20,[1]=h/2)
+                // operation = one single operation, for example b-30 or lr+20
 
-		// operationArray = array with all the operations that were put in, for example [0]=lr+20,[1]=h/2)
-		// operation = one single operation, for example b-30 or lr+20
+                for (var i = 0; i < operationArray.length; i++) { // loop through every operation in the array
+                    operation = operationArray[i];
 
-		for (var i=0; i<operationArray.length; i++) { // loop through every operation in the array
-			operation = operationArray[i];
+                    if (operation.indexOf("*") >= 0)
+                        checkOperationNotation(operation, amount, "*");
+                    else if (operation.indexOf("/") >= 0)
+                        checkOperationNotation(operation, amount, "/");
+                    else if (operation.indexOf("%") >= 0)
+                        checkOperationNotation(operation, amount, "%");
+                    else if (operation.indexOf("=") >= 0)
+                        checkOperationNotation(operation, amount, "=");
+                    else {
+                        amount = operation.replace(resizeCommandDirections, "");
 
-			if (operation.indexOf("*") >= 0)
-				checkOperationNotation(operation, amount, "*");
-			else if (operation.indexOf("/") >= 0)
-				checkOperationNotation(operation, amount, "/");
-			else if (operation.indexOf("%") >= 0)
-				checkOperationNotation(operation, amount, "%");
-			else if (operation.indexOf("=") >= 0)
-				checkOperationNotation(operation, amount, "=");
-			else {
-				amount = operation.replace(resizeCommandDirections, "");
-
-				if (operation.indexOf("-") >= 0) {
-					operator = "-";
-					amount = amount.split(operator)[1];
-					ContractExpand(operation, operator, amount);
-				}
-				else { //if nothing is used, for example l20, then use expand
-					operator = "+";
-					ContractExpand(operation, operator, amount);
-				}
-			}
-		}
-	}
+                        if (operation.indexOf("-") >= 0) {
+                            operator = "-";
+                            amount = amount.split(operator)[1];
+                            ContractExpand(operation, operator, amount);
+                        }
+                        else { //if nothing is used, for example l20, then use expand
+                            operator = "+";
+                            ContractExpand(operation, operator, amount);
+                        }
+                    }
+                }
+            }
+        }
+    )
 }
 
 // A nicer/shorter way for saving settings than using persistence.js: http://developer.sketchapp.com/reference/api/file/api/Application.js.html
